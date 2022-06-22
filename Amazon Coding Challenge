@@ -1,0 +1,46 @@
+def path_finder(grid, paths, i, j, current_path=[]):
+	(x,y) = (len(grid), len(grid[0]))
+
+	#code to return should path from top left to bottom rightmost 
+	#corner be reached, i.e taking current_path, add to paths
+	#and return
+	if i == x-1 and j == y-1:
+		paths.append(current_path)
+		return
+	current_path.append(grid[i][j])
+
+	#horizontal translation	
+	if 0 <= i < x and 0 <= j + 1 < y:
+		path_finder(grid, paths, i, j + 1, current_path)
+
+	#vertical translation
+	if 0 <= i + 1 < x and 0 <= j < y:
+		path_finder(grid, paths, i + 1, j, current_path)
+
+	current_path.pop()
+
+def recursive_number_of_paths(grid):
+	#initialising grid
+	#Visualizing array using schematic where 1 is starting and delivery points,
+    #0 is a viable path, and -1 is an obstacle
+	grid = [
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, -1, -1, -1],
+		[0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+	]
+	print(f'grid{grid}')
+	paths = []
+	path_finder(grid, paths, 0, 0)
+	print(f'paths{paths}')
+	return len(paths)
+
+if __name__ == "__main__":
+	print(recursive_number_of_paths(11))
+
